@@ -1,0 +1,76 @@
+<br />
+<br />
+
+  <br>
+
+  <div class="row justify-content-center">
+    
+    <div class="col-lg-3 mb-3 text-center align-items-center">
+      <h2 class="text-center">{{ Titulo }}</h2>
+      <div class="form-group" style="background-color: rgb(233, 235, 235);">
+
+        
+        <label for="NombreUsuario">Nombre:</label>
+        <input id="NombreUsuario" [(ngModel)]="NombreUsuario" type="text" class="form-control form-control-sm small-input Emp" />
+        <br>
+        <label for="ApellidoUsuario">Apellido:</label>
+        <input id="ApellidoUsuario" [(ngModel)]="ApellidoUsuario" type="text" class="form-control form-control-sm small-input Emp" />
+        <br>
+        <label for="Telefono">Telefono :</label>
+        <input id="Telefono" [(ngModel)]="Telefono" type="tel"/>
+        <br>
+        <label for="Correo">Correo:</label>
+        <input id="Correo" [(ngModel)]="Correo" type="email" class="form-control form-control-sm small-input ConCom" />
+        <br>
+        <label for="Contrasena">Contrasena:</label>
+        <input id="Contrasena" [(ngModel)]="Contrasena" type="password" class="form-control form-control-sm small-input ConCom" />
+        <br>
+      
+        <button class="btn btn-danger" [disabled]="!agregarHabilitado" class="btn btn-primary mt-3" (click)="agregarUsuario($event)" style="margin-right: 10px;">Agregar
+          Usuario</button>
+        <button class="btn btn-primary mt-3" (click)="modificarUsuario(UsuarioID,$event)">Editar Usuario</button>
+      </div>
+    </div>
+
+
+    <!-- Espacio en el centro -->
+    <div class="col-lg-1"></div>
+
+    <!-- Tabla -->
+    <div class="col-lg-6 text-center">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>ID Usuario</th>
+            <th>Nombre Completo</th>
+            <th>Correo</th> 
+            <th>Contraseña</th> 
+            <th>Telefono</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (Usuario of Usuario(); track Usuario.UsuarioID) {
+          <tr>
+            <td>{{ Usuario.UsuarioID}}</td>
+            <td>{{ Usuario.NombreUsuario }} {{ Usuario.ApellidoUsuario }}</td>
+            <td>{{ Usuario.Correo }}</td>
+            <td>**************</td>
+            <td>{{ Usuario.Telefono }}</td>
+            
+            <td>
+              <button id="botonMostrar" class="btn btn-secondary" (click)="encontrarUsuario(Usuario.UsuarioID)"
+                style="margin-right: 10px;">Editar</button>
+              <button class="btn btn-danger" (click)="borrarUsuario(Usuario.UsuarioID)">Borrar</button>
+            </td>
+          </tr>
+          } @empty {
+          <tr>
+            <td colspan="5">Nada que mostrar.</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+

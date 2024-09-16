@@ -1,0 +1,49 @@
+###
+
+POST http://localhost/usuarios/ HTTP/1.1
+
+###
+
+GET http://localhost/usuarios// HTTP/1.1
+
+###
+
+GET http://localhost/factura/ HTTP/1.1
+
+###
+
+GET http://localhost/reservacion/ HTTP/1.1
+
+
+###
+
+POST http://localhost/usuarios HTTP/1.1
+Content-Type: application/json
+
+{
+    "NombreUsuario": "Luis",
+    "ApellidoUsuario": "Hernández",
+    "Telefono": 88012345,
+    "Correo": "luis.hernandez@gmail.com",
+    "Contrasena": "password123"
+  
+}
+###
+
+DELETE http://localhost/solicitante/11 HTTP/1.1
+
+
+
+###
+POST  http://localhost/usuarios/autenticar/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "Correo": "luis.hernandez@gmail.com",
+    "Contrasena": "password123"
+  
+}
+###
+POST http://localhost/usuarios/validarToken HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSb2wiOiJBZG1pbk5pdmVsMSIsIkNvcnJlbyI6Imx1aXMuaGVybmFuZGV6QGdtYWlsLmNvbSIsIlVzdWFyaW9JRCI6MSwiaWF0IjoxNzIzMzEzNTE3LCJleHAiOjE3MjMzMTQxMTd9.WxiPM7qR52FALwUkfEa9csZ_KfnpU5XThsQJEQCQ_Q0
+

@@ -1,0 +1,39 @@
+/* Asegúrate de que el margen y el padding del body sean cero */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.dropdownmenu {
+    background-color:  rgb(33, 135, 238); /* Color dorado */
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    position: fixed; /* Fijo en la parte superior */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Asegúrate de que el menú esté sobre otros elementos */
+}
+
+.dropdownmenu ul {
+    list-style-type: none; /* Quita los puntos de la lista */
+    padding: 0;
+    margin: 0;
+    display: flex; /* Flexbox para alinear los elementos en una fila */
+    justify-content: center; /* Centra los elementos horizontalmente */
+}
+
+.dropdownmenu li {
+    margin: 0;
+}
+
+.dropdownmenu a {
+    display: block;
+    padding: 15px 20px; /* Espaciado alrededor del texto */
+    text-decoration: none; /* Quita el subrayado */
+    color: white; /* Color del texto */
+    font-weight: bold; /* Negrita */
+    text-align: center;
+}
+
+.dropdownmenu a:hover {
+    background-color: rgb(106, 172, 238); /* Color dorado más oscuro al pasar el mouse */
+}

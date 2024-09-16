@@ -1,0 +1,83 @@
+
+  <br>
+  <br>
+  <br>
+
+  <br>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-3 mb-3 text-center align-items-center">
+      <h2 class="text-center">{{ Titulo }}</h2>
+      <div class="form-group" style="background-color: rgb(233, 235, 235);">
+
+        
+        
+        <label for="FechaDeReservacion">Fecha Reservacion:</label>
+        <input id="FechaDeReservacion" [(ngModel)]="FechaDeReservacion" type="datetime" class="form-control form-control-sm small-input Emp" />
+        <br>
+        <label for="TipoCita">Tipo Cita:</label>
+        <select id="TipoCita" [(ngModel)]="TipoCita" class="form-control form-control-sm small-input Emp">
+          <option value="">Selecciona un tipo de cita</option>
+          <option value="Manicure">Manicure</option>
+          <option value="Pedicure">Pedicure</option>
+          <option value="Pestanas">Pestañas</option>
+          <option value="MakeUp">Makeup</option>
+          <option value="Extensiones">Extensiones</option>
+          <option value="LisadoCabello">Lisado de Cabello</option>
+          <option value="TinteCabello">Tinte de Cabello</option>
+        </select>
+         <br>
+        <label for="SolicitanteID">SolicitanteID:</label>
+        <input id="SolicitanteID" [(ngModel)]="SolicitanteID" type="number" class="form-control form-control-sm small-input ConCom" />
+        <br>
+      
+        <button class="btn btn-danger" [disabled]="!agregarHabilitado"  class="btn btn-primary mt-3" (click)="agregarReservaciones($event)" style="margin-right: 10px;">Agregar
+          Reservacion</button>
+        <button class="btn btn-primary mt-3" (click)="modificarReservaciones(NumeroReservacion,$event)">Editar Reservacion</button>
+
+        
+      </div>
+    </div>
+
+
+    <!-- Espacio en el centro -->
+    <div class="col-lg-1"></div>
+
+    <!-- Tabla -->
+    <div class="col-lg-6 text-center">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>Numero Reservacion</th>
+            <th>Fecha Reservacion</th>
+            <th>Tipo Cita</th> 
+            <th>Solicitante ID</th> 
+            <th>Accciones</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          @for (Reservaciones of Reservaciones(); track Reservaciones.NumeroReservacion) {
+          <tr>
+            <td>{{ Reservaciones.NumeroReservacion}}</td>
+            <td>{{ Reservaciones.FechaDeReservacion}}</td>
+            <td>{{ Reservaciones.TipoCita}}</td>
+            <td>{{ Reservaciones.SolicitanteID}}</td>
+            
+            
+            <td>
+              <button  id="botonMostrar" class="btn btn-secondary" (click)="encontrarReservaciones(Reservaciones.NumeroReservacion)"
+                style="margin-right: 10px;">Editar</button>
+              <button class="btn btn-danger" (click)="borrarReservaciones(Reservaciones.NumeroReservacion)">Borrar</button>
+            </td>
+          </tr>
+          } @empty {
+          <tr>
+            <td colspan="5">Nada que mostrar.</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+

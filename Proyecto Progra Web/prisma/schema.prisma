@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  UsuarioID       Int    @id @default(autoincrement())
+  NombreUsuario   String
+  ApellidoUsuario String
+  Telefono        Int
+  Correo          String
+  Contrasena      String
+  Token          String? @db.VarChar(500)
+  Rol Roles?     @default(UsuarioNivel0)
+  
+}
+
+model Reservacion {
+  NumeroReservacion  Int          @id @default(autoincrement())
+  FechaDeReservacion DateTime     @default(now())
+  TipoCita           String  
+  SolicitanteID      Int
+  Solicitante        Solicitantes @relation(fields: [SolicitanteID], references: [SolicitanteID], onDelete: Cascade)
+}
+
+model Factura {
+  FacturaID       Int          @id @default(autoincrement())
+  FechaDeCreacion DateTime     @default(now())
+  TipoCita        String
+  Subtotal        Int
+  Total           Int
+  SolicitanteID   Int
+  Solicitante     Solicitantes @relation(fields: [SolicitanteID], references: [SolicitanteID],onDelete: Cascade)
+ 
+}
+
+model Auditoria {
+  AuditoriaID         Int          @id @default(autoincrement())
+  DescripcionDeAccion String
+  FechaDeModificacion DateTime     @default(now())
+  FechaDeCreacion DateTime @default(now())
+  ActualizadoEn DateTime @default(now()) @updatedAt
+}
+
+model Solicitantes {
+  SolicitanteID       Int           @id @default(autoincrement())
+  NombreSolicitante   String
+  ApellidoSolicitante String
+  Telefono            Int
+  Correo              String
+  Factura             Factura[]  
+  Reservacion         Reservacion[]
+}
+
+enum TipoCita {
+  Manicure
+  Pedicure
+  Pestanas
+  MakeUp
+  Extensiones
+  LisadoCabello
+  TinteCabello
+}
+enum Roles {
+  UsuarioNivel0
+  AdminNivel1
+}
+

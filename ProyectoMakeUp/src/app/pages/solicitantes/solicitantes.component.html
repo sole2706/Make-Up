@@ -1,0 +1,71 @@
+<br />
+<br />
+
+  <br>
+
+
+  <div class="row justify-content-center">
+    <div class="col-lg-3 mb-3 text-center align-items-center">
+      <h2 class="text-center">{{ Titulo }}</h2>
+      <div class="form-group" style="background-color: rgb(233, 235, 235);">
+
+        
+        <label for="NombreSolicitante">Nombre:</label>
+        <input id="NombreSolicitante" [(ngModel)]="NombreSolicitante" type="text" class="form-control form-control-sm small-input Emp" />
+        <br>
+        <label for="ApellidoSolicitante">Apellido:</label>
+        <input id="ApellidoSolicitante" [(ngModel)]="ApellidoSolicitante" type="text" class="form-control form-control-sm small-input Emp" />
+        <br>
+        <label for="Telefono">Telefono :</label>
+        <input id="Telefono" [(ngModel)]="Telefono" type="tel"/>
+        <br>
+        <label for="Correo">Correo:</label>
+        <input id="Correo" [(ngModel)]="Correo" type="email" class="form-control form-control-sm small-input ConCom" />
+        <br>
+        <button class="btn btn-danger" [disabled]="!agregarHabilitado" class="btn btn-primary mt-3" (click)="agregarSolicitante($event)" style="margin-right: 10px;">Agregar
+          Solicitante</button>
+        <button class="btn btn-primary mt-3" (click)="modificarSolicitante(SolicitanteID,$event)">Editar Solicitante </button>
+      </div>
+    </div>
+
+        
+
+
+    <!-- Espacio en el centro -->
+    <div class="col-lg-1"></div>
+
+    <!-- Tabla -->
+    <div class="col-lg-6 ">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>ID Solicitante</th>
+            <th>Nombre Completo</th>
+            <th>Correo</th> 
+            <th>Telefono</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (Solicitantes of Solicitantes(); track Solicitantes.SolicitanteID) {
+          <tr>
+            <td>{{ Solicitantes.SolicitanteID}}</td>
+            <td>{{ Solicitantes.NombreSolicitante }} {{ Solicitantes.ApellidoSolicitante }}</td>
+            <td>{{ Solicitantes.Correo }}</td>
+            <td>{{ Solicitantes.Telefono }}</td>
+            
+            <td>
+              <button id="botonMostrar"  class="btn btn-secondary" (click)="encontrarSolicitante(Solicitantes.SolicitanteID)"
+                style="margin-right: 10px;">Editar</button>
+              <button class="btn btn-danger" (click)="borrarSolicitante(Solicitantes.SolicitanteID)">Borrar</button>
+            </td>
+          </tr>
+          } @empty {
+          <tr>
+            <td colspan="5">Nada que mostrar.</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    

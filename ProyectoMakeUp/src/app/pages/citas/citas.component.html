@@ -1,0 +1,191 @@
+<br>
+<br>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+         body {
+            background-color: black;
+        
+        }
+        head {
+            background-color: black;
+        
+        }
+        footer{
+            background-color: black;
+        
+        }
+        .form-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .form-group {
+            flex: 2;
+        }
+        .carousel-inner img {
+            width: 100%;
+            height: auto;
+        }
+       
+    </style>
+</head>
+<body>
+<div class="container-fluid" style="background-color: black;">
+    <div class="row vh-100">
+        <!-- Formularios en la mitad izquierda -->
+        <div class="col-md-6 p-3" style="background-color: black;">
+            <div class="mb-3 bg-light border rounded p-3">
+                <h2>Solicitud de Cita</h2>
+                <div class="form-group">
+                    <label for="SolicitanteID">SolicitanteID:</label>
+                    <input id="SolicitanteID" [(ngModel)]="SolicitanteID" type="number" class="form-control form-control-sm" min="1" max="10000" />
+                    
+                    <br>
+                  
+                    <label for="TipoCita">Tipo Cita:</label>
+                    <select id="TipoCita" [(ngModel)]="TipoCita" class="form-control form-control-sm">
+                        <option value="">Selecciona un tipo de cita</option>
+                        <option value="Manicure">Manicure  </option>
+                        <option value="Pedicure">Pedicure </option>
+                        <option value="Pestanas">Pestañas </option>
+                        <option value="MakeUp">Makeup </option>
+                        <option value="Extensiones">Extensiones </option>
+                        <option value="LisadoCabello">Lisado de Cabello </option>
+                        <option value="TinteCabello">Tinte de Cabello </option>
+                    </select>
+                    <label for="FechaDeReservacion">Fecha Reservacion:</label>
+                    <input id="FechaDeReservacion" [(ngModel)]="FechaDeReservacion" type="datetime" class="form-control form-control-sm"/>
+                    <button class="btn btn-primary mt-3" (click)="agregarReservaciones($event)">Agregar Cita</button>
+                    <button class="btn btn-primary mt-3" (click)="modificarReservaciones(NumeroReservacion,$event)">Editar Cita</button>
+                    <br>
+                    {{ mensajeConfirmacion }}
+                    
+
+                </div>
+            </div>
+            <div class="bg-light border rounded p-3" style="background-color: black;">
+                <h5>Seleccionar Cita</h5>
+                <table class="table table-striped table-hover" style="background-color: black;">
+                    <thead>
+                        <tr>
+                            <th>Fecha Reservacion</th>
+                            <th>Tipo Cita</th>
+                            <th>Solicitante ID</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (Reservaciones of Reservaciones(); track Reservaciones.NumeroReservacion) {
+                        <tr>
+                            <td>{{ Reservaciones.FechaDeReservacion}}</td>
+                            <td>{{ Reservaciones.TipoCita}}</td>
+                            <td>{{ Reservaciones.SolicitanteID}} </td>
+                          
+                            <td>
+                                <button  id="botonMostrar" class="btn btn-secondary" (click)="encontrarReservaciones(Reservaciones.NumeroReservacion)"
+                                  style="margin-right: 10px;">Editar</button>
+                                <button class="btn btn-danger" (click)="borrarReservaciones(Reservaciones.NumeroReservacion)">Cancelar</button>
+                                
+                              </td>
+                        </tr>
+                      
+                        } @empty {
+                        <tr>
+                          <td colspan="5">Nada que mostrar.</td>
+                        </tr>
+                        }
+                      </tbody>
+                    </table>
+                    {{ mensajeConfirmacion1 }}
+                    
+            </div>
+            <br>
+
+             <div class="mb-3 bg-light border rounded p-3" style="background-color: black;">
+                <h5>Crear Solicitante</h5>
+                <div class="form-group" >
+                    <label for="NombreSolicitante">Nombre:</label>
+                    <input id="NombreSolicitante" [(ngModel)]="NombreSolicitante" type="text" class="form-control form-control-sm"/>
+                    <br>
+                    <label for="ApellidoSolicitante">Apellido:</label>
+                    <input id="ApellidoSolicitante" [(ngModel)]="ApellidoSolicitante" type="text" class="form-control form-control-sm"/>
+                    <br>
+                    <label for="Telefono">Telefono:</label>
+                    <input id="Telefono" [(ngModel)]="Telefono" type="tel" class="form-control form-control-sm"/>
+                    <br>
+                    <label for="Correo">Correo:</label>
+                    <input id="Correo" [(ngModel)]="Correo" type="email" class="form-control form-control-sm"/>
+                    <br>
+                    <button class="btn btn-primary mt-3" (click)="agregarSolicitante($event)">Agregar Solicitante</button>
+                    <br>
+                    {{ mensajeConfirmacion }}
+
+                </div>
+                
+            </div>
+
+            <div class="bg-light border rounded p-3" style="background-color: black;">
+                <h5>Seleccionar Solicitante</h5>
+                <table class="table table-striped table-hover" style="background-color: black;">
+                    <thead>
+                        <tr>
+                            <th>ID Solicitante</th>
+                            <th>Nombre Completo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (Solicitantes of Solicitantes(); track Solicitantes.SolicitanteID) {
+                        <tr>
+                          <td>{{ Solicitantes.SolicitanteID}}</td>
+                          <td>{{ Solicitantes.NombreSolicitante }} {{ Solicitantes.ApellidoSolicitante }}</td>
+                          
+                          
+                          <td>
+                            <button id="botonMostrar"  class="btn btn-secondary" (click)="encontrarSolicitante(Solicitantes.SolicitanteID)"
+                              style="margin-right: 10px;">Seleccionar ID del Solicitante</button>
+                          </td>
+                        </tr>
+                        } @empty {
+                        <tr>
+                          <td colspan="5">Nada que mostrar.</td>
+                        </tr>
+                        }
+                      </tbody>
+                    </table>
+            </div>
+        </div>
+
+        <!-- Carrusel de imágenes en la mitad derecha -->
+        <div class="col-md-6 p-0" style="background-color: black;" >
+            <div id="carouselExampleControls" class="carousel slide" style="background-color: black;">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://img.freepik.com/fotos-premium/dos-pinceles-maquillaje-sombras-maquillaje-azul-movimiento-sobre-fondo-negro_73492-267.jpg" class="d-block w-100" alt="Imagen 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../../../assets/images/imagen 4.jpg" class="d-block w-100" alt="Imagen 4">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://i.pinimg.com/564x/5e/92/ef/5e92ef76c6c0d757ee2c1202512173e0.jpg" class="d-block w-100" alt="Imagen 3">
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
